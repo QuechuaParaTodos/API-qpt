@@ -30,7 +30,7 @@ export default class Server {
 
     middlewares(): void {
         // Desplegar el directorio público
-        this.app.use( express.static( path.resolve( __dirname, '../src/public' ) ) );
+        this.app.use( express.static( path.resolve( __dirname, '../public' ) ) );
 
         // CORS
         this.app.use( cors() );
