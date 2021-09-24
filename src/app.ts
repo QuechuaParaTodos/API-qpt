@@ -3,10 +3,19 @@ import express from 'express';
 // import http from 'http';
 import path from 'path';
 import cors from 'cors';
+import morgan from 'morgan';
 import './config/db';
 
+//Swagger
+import swaggerUI from 'swagger-ui-express';
+import swaggerJsDoc from 'swagger-jsdoc';
+
+
 // Rutas
-import routeProject from './routes/project.route';
+import routeProject from './routes/project.routes';
+import routeUser from './routes/user.routes';
+import routeAuth from './routes/auth.routes';
+import { options } from './config/swaggerOptions';
 
 //const socketio = require('socket.io');
 //const Sockets  = require('./sockets');
@@ -35,12 +44,20 @@ export default class Server {
         // CORS
         this.app.use( cors() );
 
-        this.app.use(express.json())
+        this.app.use(morgan('dev'));
 
+        this.app.use(express.json())
+    }
+
+    swagger(): void {
+        const specs = swaggerJsDoc(options);
+        this.app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
     }
 
     routes(): void {
-        this.app.use("/api/v1/project", routeProject);        
+        this.app.use("/api/v1/project", routeProject);  
+        this.app.use("/api/v1/user", routeUser);   
+        this.app.use("/api/v1/auth", routeAuth);        
     }
 
     // Esta configuración se puede tener aquí o como propieda de clase
@@ -61,6 +78,8 @@ export default class Server {
         //this.configurarSockets();
 
         this.routes();
+
+        this.swagger();        
 
         // Inicializar Server
         this.app.listen( this.port, () => {
