@@ -7,7 +7,7 @@
   4. helpers
   5. middlewares
   6. models
-  7. public
+  7. public-
   8. routes
   9. services
 
