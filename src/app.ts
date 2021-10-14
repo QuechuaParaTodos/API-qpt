@@ -15,6 +15,7 @@ import swaggerJsDoc from 'swagger-jsdoc';
 import routeProject from './routes/project.routes';
 import routeUser from './routes/user.routes';
 import routeAuth from './routes/auth.routes';
+import routeDictionary from './routes/dictionary.routes';
 import { options } from './config/swaggerOptions';
 
 //const socketio = require('socket.io');
@@ -57,7 +58,8 @@ export default class Server {
     routes(): void {
         this.app.use("/api/v1/project", routeProject);  
         this.app.use("/api/v1/user", routeUser);   
-        this.app.use("/api/v1/auth", routeAuth);        
+        this.app.use("/api/v1/auth", routeAuth);  
+        this.app.use("/api/v1/dictionary", routeDictionary);        
     }
 
     // Esta configuración se puede tener aquí o como propieda de clase

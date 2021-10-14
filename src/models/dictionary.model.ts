@@ -14,10 +14,16 @@ const DictionarySchema = new Schema<Dictionary>({
   },
   meanings: [
     {
+      uid: {
+        type: String
+      },
       meaning: {
         type: String
       },
       grammatical_category: {
+        type: String
+      },
+      origin: {
         type: String
       },
       equivalent: {
